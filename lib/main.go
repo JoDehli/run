@@ -33,7 +33,7 @@ func main() {
 
 	// Run version command
 	if *v {
-		fmt.Println("version")
+		commands.Version()
 		os.Exit(0)
 	}
 
