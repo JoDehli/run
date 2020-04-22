@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"os"
+
+	"github.com/lukecjohnson/dot/lib/commands"
 )
 
 func main() {
@@ -18,7 +20,7 @@ func main() {
 
 	// Too many arguments
 	if len(arguments) > 1 {
-		fmt.Println("Too many arguments.")
+		fmt.Println("Error: Too many arguments.")
 		fmt.Println("Run \"do -h\" for usage instructions.")
 		os.Exit(2)
 	}
@@ -35,6 +37,7 @@ func main() {
 		os.Exit(0)
 	}
 
+	// Run root command
 	script := arguments[0]
-	fmt.Println(script)
+	commands.Root(script)
 }
