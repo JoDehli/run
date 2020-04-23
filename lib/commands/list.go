@@ -9,22 +9,22 @@ import (
 )
 
 func List() {
-  data, err := ioutil.ReadFile("scripts.yaml")
+  data, err := ioutil.ReadFile("dot.yaml")
   if err != nil {
-    fmt.Println("Error: Cannot find \"scripts.yaml\" in the current directory.")
+    fmt.Println("Error: Cannot find \"dot.yaml\" in the current directory.")
     os.Exit(1)
   }
 
-  scripts := make(map[string]string)
-  if err := yaml.Unmarshal([]byte(data), &scripts); err != nil {
-    fmt.Println("Error: Unable to parse \"scripts.yaml\".")
+  commands := make(map[string]string)
+  if err := yaml.Unmarshal([]byte(data), &commands); err != nil {
+    fmt.Println("Error: Unable to parse \"dot.yaml\".")
     os.Exit(1)
   }
 
   fmt.Println()
-  fmt.Println("Available scripts:")
-  for script := range scripts {
-    fmt.Printf("  %s \n", script)
+  fmt.Println("Available commands:")
+  for command := range commands {
+    fmt.Printf("  %s \n", command)
   }
   fmt.Println()
 

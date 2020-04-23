@@ -16,8 +16,8 @@ func main() {
 	flag.BoolVar(&versionFlag, "version", false, "Prints the current installed version of this tool.")
 
 	var listFlag bool
-	flag.BoolVar(&listFlag, "l", false, "Prints all the available scripts found in \"scripts.yaml\".")
-	flag.BoolVar(&listFlag, "list", false, "Prints all the available scripts found in \"scripts.yaml\".")
+	flag.BoolVar(&listFlag, "l", false, "Prints all the available commands found in \"dot.yaml\".")
+	flag.BoolVar(&listFlag, "list", false, "Prints all the available commands found in \"dot.yaml\".")
 
 	flag.Usage = commands.Help
 	
@@ -41,6 +41,6 @@ func main() {
 		commands.List()
 	}
 
-	script := arguments[0]
-	commands.Run(script)
+	command := arguments[0]
+	commands.Run(command)
 }
