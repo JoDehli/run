@@ -10,5 +10,6 @@ import (
 func Version() {
   currentVersion := utils.CurrentVersion
   fmt.Println(currentVersion)
+
   os.Exit(0)
 }

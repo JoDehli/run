@@ -6,8 +6,6 @@ import (
 )
 
 func Help() {
-
-  // Usage
   usage := `
 Usage:
   dot <script>      Runs the provided script found in "scripts.yaml".
@@ -18,10 +16,7 @@ Other options:
   -v, --version     Prints the current installed version of this tool.
 
 `
-  // Print usage
   fmt.Print(usage)
 
-  // Exit
   os.Exit(0)
-
 }
