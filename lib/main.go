@@ -12,12 +12,17 @@ func main() {
 	// Arguments
 	arguments := os.Args[1:]
 
-	// Flags
+	// Version flag
 	var v bool
 	flag.BoolVar(&v,"v", false, "Prints the current installed version of this tool.")
 	flag.BoolVar(&v,"version", false, "Prints the current installed version of this tool.")
 
-	// Override default usage
+	// Scripts flag
+	var s bool
+	flag.BoolVar(&s,"s", false, "Prints all the available scripts found in \"scripts.yaml\".")
+	flag.BoolVar(&s,"scripts", false, "Prints all the available scripts found in \"scripts.yaml\".")
+
+	// Override default usage function
 	flag.Usage = commands.Help
 
 	// Parse flags
@@ -30,7 +35,7 @@ func main() {
 		os.Exit(2)
 	}
 
-	// No arguments - output usage instructions
+	// No arguments - run help command
 	if len(arguments) == 0 {
 		commands.Help()
 	}
@@ -38,6 +43,11 @@ func main() {
 	// Run version command
 	if v {
 		commands.Version()
+	}
+
+	// Run scripts command
+	if s {
+		commands.Scripts()
 	}
 
 	// Run root command
