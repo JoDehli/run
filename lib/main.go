@@ -13,7 +13,12 @@ func main() {
 	arguments := os.Args[1:]
 
 	// Flags
-	v := flag.Bool("v", false, "Prints the current installed version of this tool.")
+	var v bool
+	flag.BoolVar(&v,"v", false, "Prints the current installed version of this tool.")
+	flag.BoolVar(&v,"version", false, "Prints the current installed version of this tool.")
+
+	// Override default usage
+	flag.Usage = commands.Help
 
 	// Parse flags
 	flag.Parse()
@@ -21,20 +26,18 @@ func main() {
 	// Too many arguments
 	if len(arguments) > 1 {
 		fmt.Println("Error: Too many arguments.")
-		fmt.Println("Run \"do -h\" for usage instructions.")
+		fmt.Println("Run \"dot -h\" for usage instructions.")
 		os.Exit(2)
 	}
 
 	// No arguments - output usage instructions
 	if len(arguments) == 0 {
-		flag.Usage()
-		os.Exit(0)
+		commands.Help()
 	}
 
 	// Run version command
-	if *v {
+	if v {
 		commands.Version()
-		os.Exit(0)
 	}
 
 	// Run root command
