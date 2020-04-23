@@ -8,7 +8,7 @@ import (
   "gopkg.in/yaml.v3"
 )
 
-func Scripts() {
+func List() {
   data, err := ioutil.ReadFile("scripts.yaml")
   if err != nil {
     fmt.Println("Error: Cannot find \"scripts.yaml\" in the current directory.")
