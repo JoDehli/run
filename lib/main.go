@@ -11,13 +11,13 @@ import (
 func main() {
 	arguments := os.Args[1:]
 
-	var v bool
-	flag.BoolVar(&v, "v", false, "Prints the current installed version of this tool.")
-	flag.BoolVar(&v, "version", false, "Prints the current installed version of this tool.")
+	var versionFlag bool
+	flag.BoolVar(&versionFlag, "v", false, "Prints the current installed version of this tool.")
+	flag.BoolVar(&versionFlag, "version", false, "Prints the current installed version of this tool.")
 
-	var l bool
-	flag.BoolVar(&l, "l", false, "Prints all the available scripts found in \"scripts.yaml\".")
-	flag.BoolVar(&l, "list", false, "Prints all the available scripts found in \"scripts.yaml\".")
+	var listFlag bool
+	flag.BoolVar(&listFlag, "l", false, "Prints all the available scripts found in \"scripts.yaml\".")
+	flag.BoolVar(&listFlag, "list", false, "Prints all the available scripts found in \"scripts.yaml\".")
 
 	flag.Usage = commands.Help
 	
@@ -33,11 +33,11 @@ func main() {
 		commands.Help()
 	}
 
-	if v {
+	if versionFlag {
 		commands.Version()
 	}
 
-	if l {
+	if listFlag {
 		commands.List()
 	}
 
