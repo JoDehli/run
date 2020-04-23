@@ -42,5 +42,5 @@ func main() {
 	}
 
 	script := arguments[0]
-	commands.Root(script)
+	commands.Run(script)
 }
