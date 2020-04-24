@@ -1,4 +1,4 @@
-PKG="./lib"
+LIB="./lib"
 BIN="./bin/dot"
 
 if VERSION=$(git describe --tags); then
@@ -10,8 +10,8 @@ fi
 
 LDFLAGS="-X github.com/lukecjohnson/dot/lib/utils.CurrentVersion=$VERSION"
 
-if go build -ldflags "$LDFLAGS" -o "$BIN" "$PKG"; then
-  echo "Build complete: $BIN"
+if go build -ldflags "$LDFLAGS" -o "$BIN" "$LIB"; then
+  echo "Build complete: $LIB"
 else
   echo "Build failed: unable to compile go package"
 fi
