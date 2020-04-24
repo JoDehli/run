@@ -11,13 +11,6 @@ import (
 func main() {
 	arguments := os.Args[1:]
 
-	versionFlag := flag.Bool("version", false, "Reports the current installed version of dot.")
-	listFlag := flag.Bool("list", false, "Lists all the available commands found in \"dot.yaml\".")
-
-	flag.Usage = commands.Help
-	
-	flag.Parse()
-
 	if len(arguments) > 1 {
 		fmt.Println("Error: Too many arguments.")
 		fmt.Println("Run \"dot --help\" for usage instructions.")
@@ -27,6 +20,13 @@ func main() {
 	if len(arguments) == 0 {
 		commands.Help()
 	}
+
+	flag.Usage = commands.Help
+
+	versionFlag := flag.Bool("version", false, "Reports the current installed version of dot.")
+	listFlag := flag.Bool("list", false, "Lists all the available commands found in \"dot.yaml\".")
+
+	flag.Parse()
 
 	if *versionFlag {
 		commands.Version()
