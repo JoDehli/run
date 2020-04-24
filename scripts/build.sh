@@ -11,7 +11,7 @@ fi
 LDFLAGS="-X github.com/lukecjohnson/dot/lib/utils.CurrentVersion=$VERSION"
 
 if go build -ldflags "$LDFLAGS" -o "$BIN" "$LIB"; then
-  echo "Build complete: $LIB"
+  echo "Build complete: $BIN"
 else
   echo "Build failed: unable to compile go package"
 fi
