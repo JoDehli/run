@@ -21,10 +21,9 @@ func List() {
     os.Exit(1)
   }
 
-  fmt.Println()
-  fmt.Println("Available commands:")
+  fmt.Println("\n" + "Available commands:")
   for command := range commands {
-    fmt.Printf("  %s \n", command)
+    fmt.Println("  " + command)
   }
   fmt.Println()
 
