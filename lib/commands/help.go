@@ -1,22 +1,20 @@
 package commands
 
 import (
+  "flag"
   "fmt"
   "os"
 )
 
 func Help() {
-  usage := `
-Usage:
-  dot <command>        Runs the provided command found in "dot.yaml".
+  fmt.Println("\n" + "Usage:")
+  fmt.Println("  dot <command>" + "\t\t" + "Runs the provided command found in \"dot.yaml\".")
 
-Other options:
-  -h, --help           Prints this usage information.
-  -l, --list           Prints all the available commands found in "dot.yaml".
-  -v, --version        Prints the current installed version of this tool.
-
-`
-  fmt.Print(usage)
+  fmt.Println("\n" + "Other options:")
+  flag.VisitAll(func(f *flag.Flag) {
+    fmt.Println("  --" + f.Name + "\t\t" + f.Usage)
+  })
+  fmt.Println()
 
   os.Exit(0)
 }
