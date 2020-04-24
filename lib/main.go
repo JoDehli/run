@@ -20,7 +20,7 @@ func main() {
 
 	if len(arguments) > 1 {
 		fmt.Println("Error: Too many arguments.")
-		fmt.Println("Run \"dot -h\" for usage instructions.")
+		fmt.Println("Run \"dot --help\" for usage instructions.")
 		os.Exit(2)
 	}
 
