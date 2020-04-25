@@ -15,7 +15,7 @@ $ dot build
 ## Installation
 As of right now, `dot` is only officially available for macOS via [`homebrew`](https://brew.sh/). To install:
 ```shell script
-$ brew install lukecjohnson/tap/dot
+$ brew install lukecjohnson/packages/dot
 ``` 
 For other platforms, `dot` can be built and installed from the source.
 
