@@ -14,9 +14,9 @@ func main() {
   versionFlag := flag.Bool("version", false, "Reports the current installed version of dot.")
   listFlag := flag.Bool("list", false, "Lists all the available commands found in \"dot.yaml\".")
 
-  flag.Parse()
-
   flag.Usage = commands.Help
+
+  flag.Parse()
 
   if len(arguments) > 1 {
     fmt.Println("Error: Too many arguments.")
