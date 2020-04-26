@@ -3,7 +3,7 @@ DIST="./dist"
 rm -rf "$DIST"
 mkdir "$DIST"
 
-if VERSION=$(git describe --tags); then
+if VERSION=$(git describe --tags --abbrev=0); then
   echo "Creating package for dot $VERSION..."
 else
   echo "Failed to create package: unable to set version"

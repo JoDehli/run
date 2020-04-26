@@ -1,7 +1,7 @@
 LIB="./lib"
 BIN="./bin/dot"
 
-if VERSION=$(git describe --tags); then
+if VERSION=$(git describe --tags --abbrev=0); then
   echo "Building dot $VERSION..."
 else
   echo "Build failed: unable to set version"
