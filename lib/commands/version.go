@@ -9,7 +9,7 @@ import (
 
 func Version() {
   currentVersion := utils.CurrentVersion
-  fmt.Println(currentVersion)
+  fmt.Printf("dot %v \n", currentVersion)
 
   os.Exit(0)
 }
