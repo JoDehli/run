@@ -20,3 +20,5 @@ if tar -czf "$PKG" "$BIN" "$README" "$LICENSE"; then
 else
   echo "Failed to create package: unable to create compressed archive"
 fi
+
+shasum -a 256 "$PKG"
