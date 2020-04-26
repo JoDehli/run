@@ -10,11 +10,10 @@ import (
 func List() {
   commands := utils.ParseYaml("dot.yaml")
 
-  fmt.Println("\n" + "Available commands:")
+  fmt.Println("Available commands:")
   for command := range commands {
     fmt.Println("  " + command)
   }
-  fmt.Println()
 
   os.Exit(0)
 }
