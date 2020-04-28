@@ -5,14 +5,14 @@ import (
   "os"
   "os/exec"
 
-  "github.com/lukecjohnson/dot/lib/utils"
+  "github.com/lukecjohnson/run/lib/utils"
 )
 
 func Run(command string) {
-  commands := utils.ParseYaml("dot.yaml")
+  commands := utils.ParseYaml("run.yaml")
 
   if _, ok := commands[command]; !ok {
-    fmt.Printf("Error: Command \"%s\" cannot be found in \"dot.yaml\".\n", command)
+    fmt.Printf("Error: Command \"%s\" cannot be found in \"run.yaml\".\n", command)
     os.Exit(2)
   }
 

@@ -1,4 +1,4 @@
-module github.com/lukecjohnson/dot
+module github.com/lukecjohnson/run
 
 go 1.14
 

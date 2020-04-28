@@ -4,11 +4,11 @@ import (
   "fmt"
   "os"
 
-  "github.com/lukecjohnson/dot/lib/utils"
+  "github.com/lukecjohnson/run/lib/utils"
 )
 
 func List() {
-  commands := utils.ParseYaml("dot.yaml")
+  commands := utils.ParseYaml("run.yaml")
 
   fmt.Println("Available commands:")
   for command := range commands {
