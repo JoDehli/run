@@ -2,11 +2,12 @@ package main
 
 import (
   "encoding/json"
-  "flag"
   "fmt"
   "io/ioutil"
   "os"
   "os/exec"
+
+  flag "github.com/spf13/pflag"
 )
 
 // Dynamically set at build time to the most recent git tag
@@ -17,8 +18,8 @@ func main() {
   arguments := os.Args[1:]
 
   // Flags
-  versionFlag := flag.Bool("version", false, "Reports the current installed version of run.")
-  listFlag := flag.Bool("list", false, "Lists all the available commands found in \"run.json\".")
+  versionFlag := flag.BoolP("version", "v", false, "Reports the current installed version of run.")
+  listFlag := flag.BoolP("list", "l", false, "Lists all the available commands found in \"run.json\".")
 
   // Override default usage output
   flag.Usage = func() {
