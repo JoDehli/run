@@ -1,5 +1,16 @@
 # Changelog
 
+## `1.0.0-beta.4` (2020-04-30)
+
+### Features
+- Shorthand flags
+    - `-v`, `--version`
+    - `-l`, `--list`
+
+### Improvements
+- Implemented `pflag` package
+- Utilizing `PrintDefaults` instead of custom usage handling
+
 ## `1.0.0-beta.3` (2020-04-30)
 
 ### Breaking changes
