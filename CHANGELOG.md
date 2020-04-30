@@ -1,5 +1,14 @@
 # Changelog
 
+## `1.0.0-beta.3` (2020-04-30)
+
+### Breaking changes
+- Switched to JSON for commands file
+    - `run.yaml` ⟶ `run.json`
+
+### Code refactoring
+- Simplifying project structure - moving everything to `main` package
+
 ## `1.0.0-beta.2` (2020-04-26)
 
 ### Fixes
