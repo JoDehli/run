@@ -9,7 +9,7 @@ Save your project's commands in `run.json`:
 }
 ```
 
-Then run a saved command with `run <command>`:
+Then run a saved command with `run [command]`:
 ```shell script
 $ run build
 ```
