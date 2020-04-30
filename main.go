@@ -24,12 +24,10 @@ func main() {
   // Override default usage output
   flag.Usage = func() {
     fmt.Println("Usage:")
-    fmt.Println("  run <command>" + "\t\t" + "Runs the provided command found in \"run.json\".")
+    fmt.Println("  run [command]")
 
     fmt.Println("\n" + "Other options:")
-    flag.VisitAll(func(f *flag.Flag) {
-      fmt.Println("  --" + f.Name + "\t\t" + f.Usage)
-    })
+    flag.PrintDefaults()
 
     os.Exit(0)
   }
