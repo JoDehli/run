@@ -9,10 +9,10 @@ import (
 )
 
 func Run(command string) {
-  commands := utils.ParseYaml("run.yaml")
+  commands := utils.ParseJson("run.json")
 
   if _, ok := commands[command]; !ok {
-    fmt.Printf("Error: Command \"%s\" cannot be found in \"run.yaml\".\n", command)
+    fmt.Printf("Error: Command \"%s\" cannot be found in \"run.json\".\n", command)
     os.Exit(2)
   }
 

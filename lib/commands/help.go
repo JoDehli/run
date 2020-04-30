@@ -8,7 +8,7 @@ import (
 
 func Help() {
   fmt.Println("Usage:")
-  fmt.Println("  run <command>" + "\t\t" + "Runs the provided command found in \"run.yaml\".")
+  fmt.Println("  run <command>" + "\t\t" + "Runs the provided command found in \"run.json\".")
 
   fmt.Println("\n" + "Other options:")
   flag.VisitAll(func(f *flag.Flag) {

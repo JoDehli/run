@@ -1,14 +1,13 @@
 package utils
 
 import (
+  "encoding/json"
   "fmt"
   "io/ioutil"
   "os"
-
-  "gopkg.in/yaml.v3"
 )
 
-func ParseYaml(filename string) map[string]string {
+func ParseJson(filename string) map[string]string {
   if _, err := os.Stat(filename); os.IsNotExist(err) {
     fmt.Printf("Error: Unable to find \"%s\" in the current directory. \n", filename)
     os.Exit(1)
@@ -20,11 +19,11 @@ func ParseYaml(filename string) map[string]string {
     os.Exit(1)
   }
 
-  yamlMap := make(map[string]string)
-  if err := yaml.Unmarshal([]byte(data), &yamlMap); err != nil {
+  jsonMap := make(map[string]string)
+  if err := json.Unmarshal([]byte(data), &jsonMap); err != nil {
     fmt.Printf("Error: Unable to parse \"%s\". \n", filename)
     os.Exit(1)
   }
 
-  return yamlMap
+  return jsonMap
 }

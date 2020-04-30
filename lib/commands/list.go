@@ -8,7 +8,7 @@ import (
 )
 
 func List() {
-  commands := utils.ParseYaml("run.yaml")
+  commands := utils.ParseJson("run.json")
 
   fmt.Println("Available commands:")
   for command := range commands {

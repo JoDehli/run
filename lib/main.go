@@ -12,7 +12,7 @@ func main() {
   arguments := os.Args[1:]
 
   versionFlag := flag.Bool("version", false, "Reports the current installed version of run.")
-  listFlag := flag.Bool("list", false, "Lists all the available commands found in \"run.yaml\".")
+  listFlag := flag.Bool("list", false, "Lists all the available commands found in \"run.json\".")
 
   flag.Usage = commands.Help
 
