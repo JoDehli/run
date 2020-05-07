@@ -68,7 +68,7 @@ func main() {
 
   // Parse "run.json"
   commands := make(map[string]string)
-  if err := json.Unmarshal([]byte(data), &commands); err != nil {
+  if err := json.Unmarshal(data, &commands); err != nil {
     fmt.Println("Error: Unable to parse \"run.json\".")
     os.Exit(1)
   }
