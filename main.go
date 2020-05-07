@@ -37,7 +37,7 @@ func main() {
 
   // Too many arguments
   if len(arguments) > 1 {
-    fmt.Println("Error: Too many arguments.")
+    fmt.Println("Error: too many arguments.")
     fmt.Println("Run \"run --help\" for usage instructions.")
     os.Exit(2)
   }
@@ -55,21 +55,21 @@ func main() {
 
   // Check for "run.json"
   if _, err := os.Stat("run.json"); os.IsNotExist(err) {
-    fmt.Println("Error: Unable to find \"run.json\" in the current directory.")
+    fmt.Println("Error: unable to resolve \"run.json\" in the current directory.")
     os.Exit(1)
   }
 
   // Read "run.json"
   data, err := ioutil.ReadFile("run.json")
   if err != nil {
-    fmt.Println("Error: Unable to read \"run.json\".")
+    fmt.Println("Error: unable to read \"run.json\".")
     os.Exit(1)
   }
 
   // Parse "run.json"
   commands := make(map[string]string)
   if err := json.Unmarshal(data, &commands); err != nil {
-    fmt.Println("Error: Unable to parse \"run.json\".")
+    fmt.Println("Error: unable to parse \"run.json\".")
     os.Exit(1)
   }
 
@@ -88,7 +88,7 @@ func main() {
 
   // Check if command exists in "run.json"
   if _, ok := commands[command]; !ok {
-    fmt.Printf("Error: Command \"%s\" cannot be found in \"run.json\".\n", command)
+    fmt.Printf("Error: command \"%s\" cannot be found in \"run.json\".\n", command)
     os.Exit(2)
   }
 
@@ -97,7 +97,7 @@ func main() {
   cmd.Stdout = os.Stdout
   cmd.Stderr = os.Stderr
   if err := cmd.Run(); err != nil {
-    fmt.Printf("Error: Failed to execute \"%s\".\n", commands[command])
+    fmt.Printf("Error: failed to execute \"%s\".\n", commands[command])
     os.Exit(1)
   }
 }
