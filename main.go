@@ -1,16 +1,16 @@
 package main
 
 import (
-  "encoding/json"
-  "fmt"
-  "io/ioutil"
-  "os"
-  "os/exec"
+	"fmt"
+	"io/ioutil"
+	"os"
+	"os/exec"
 
-  flag "github.com/spf13/pflag"
+	flag "github.com/spf13/pflag"
+	"gopkg.in/yaml.v2"
 )
 
-// Dynamically set at build time to the most recent git tag
+// Version : Dynamically set at build time to the most recent git tag
 var Version = "DEV"
 
 func main() {
@@ -19,7 +19,7 @@ func main() {
 
   // Flags
   versionFlag := flag.BoolP("version", "v", false, "Reports the current installed version of run.")
-  listFlag := flag.BoolP("list", "l", false, "Lists all the available commands found in \"run.json\".")
+  listFlag := flag.BoolP("list", "l", false, "Lists all the available commands found in \"run.yaml\".")
 
   // Override default usage output
   flag.Usage = func() {
@@ -53,23 +53,23 @@ func main() {
     os.Exit(0)
   }
 
-  // Check for "run.json"
-  if _, err := os.Stat("run.json"); os.IsNotExist(err) {
-    fmt.Println("Error: unable to resolve \"run.json\" in the current directory.")
+  // Check for "run.yaml"
+  if _, err := os.Stat("run.yaml"); os.IsNotExist(err) {
+    fmt.Println("Error: unable to resolve \"run.yaml\" in the current directory.")
     os.Exit(1)
   }
 
-  // Read "run.json"
-  data, err := ioutil.ReadFile("run.json")
+  // Read "run.yaml"
+  data, err := ioutil.ReadFile("run.yaml")
   if err != nil {
-    fmt.Println("Error: unable to read \"run.json\".")
+    fmt.Println("Error: unable to read \"run.yaml\".")
     os.Exit(1)
   }
 
-  // Parse "run.json"
+  // Parse "run.yaml"
   commands := make(map[string]string)
-  if err := json.Unmarshal(data, &commands); err != nil {
-    fmt.Println("Error: unable to parse \"run.json\".")
+  if err := yaml.Unmarshal(data, &commands); err != nil {
+    fmt.Println("Error: unable to parse \"run.yaml\".")
     os.Exit(1)
   }
 
@@ -86,9 +86,9 @@ func main() {
   // Provided command
   command := arguments[0]
 
-  // Check if command exists in "run.json"
+  // Check if command exists in "run.yaml"
   if _, ok := commands[command]; !ok {
-    fmt.Printf("Error: command \"%s\" cannot be found in \"run.json\".\n", command)
+    fmt.Printf("Error: command \"%s\" cannot be found in \"run.yaml\".\n", command)
     os.Exit(2)
   }
 
