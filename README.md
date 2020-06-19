@@ -1,15 +1,13 @@
 # `run`
 A simple tool to save and run frequently used commands
 
-## Overview
-Save your project's commands in `run.json`:
-```json
-{
-  "build": "go build -o ./bin/run"
-}
+## Usage
+Save your project's commands in `run.yaml`:
+```yaml
+build: go build -o ./bin/run
 ```
 
-Then run a saved command with `run [command]`:
+Then execute a saved command with `run [command]`:
 ```shell script
 $ run build
 ```
