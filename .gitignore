@@ -1,6 +1,6 @@
 # Build
-/bin
-/dist
+build
+dist
 
 # IDE
 .vscode
