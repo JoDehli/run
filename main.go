@@ -10,8 +10,8 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-// Version : Dynamically set at build time to the most recent git tag
-var Version = "DEV"
+// Dynamically set at build time to the most recent git tag
+var currentVersion = "DEV"
 
 func main() {
 	arguments := os.Args[1:]
@@ -42,7 +42,7 @@ func main() {
 	}
 
 	if *versionFlag {
-		fmt.Println(Version)
+		fmt.Println(currentVersion)
 		os.Exit(0)
 	}
 

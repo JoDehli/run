@@ -5,7 +5,7 @@ else
   exit
 fi
 
-LDFLAGS="-X main.Version=$VERSION"
+LDFLAGS="-X main.currentVersion=$VERSION"
 BIN="./bin/run"
 
 if go build -ldflags "$LDFLAGS" -o "$BIN"; then
