@@ -14,11 +14,11 @@ import (
 var currentVersion = "DEV"
 
 func main() {
-	arguments := os.Args[1:]
+	// Command line flags
+	version := flag.BoolP("version", "v", false, "Display the current version of run")
+	list := flag.BoolP("list", "l", false, "List all the available commands found in \"run.yaml\"")
 
-	versionFlag := flag.BoolP("version", "v", false, "Reports the current installed version of run.")
-	listFlag := flag.BoolP("list", "l", false, "Lists all the available commands found in \"run.yaml\".")
-
+	// Override default usage function
 	flag.Usage = func() {
 		fmt.Println("Usage:")
 		fmt.Println("  run [command]")
@@ -29,19 +29,23 @@ func main() {
 		os.Exit(0)
 	}
 
+	// Parse flags
 	flag.Parse()
 
-	if len(arguments) > 1 {
+	// Parse non-flag arguments
+	args := flag.Args()
+
+	if len(args) == 0 {
+		flag.Usage()
+	}
+
+	if len(args) > 1 {
 		fmt.Println("Error: too many arguments.")
 		fmt.Println("Run \"run --help\" for usage instructions.")
 		os.Exit(2)
 	}
 
-	if len(arguments) == 0 {
-		flag.Usage()
-	}
-
-	if *versionFlag {
+	if *version {
 		fmt.Println(currentVersion)
 		os.Exit(0)
 	}
@@ -50,7 +54,7 @@ func main() {
 	if _, err := os.Stat(commandsFile); os.IsNotExist(err) {
 		commandsFile = "run.yml"
 		if _, err := os.Stat(commandsFile); os.IsNotExist(err) {
-			fmt.Println("Error: unable to resolve \"run.yaml\" in the current directory.")
+			fmt.Println("Error: unable to find \"run.yaml\" in the current directory.")
 			os.Exit(1)
 		}
 	}
@@ -67,7 +71,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	if *listFlag {
+	if *list {
 		fmt.Println("Available commands:")
 		for command := range commands {
 			fmt.Println("  " + command)
@@ -76,7 +80,7 @@ func main() {
 		os.Exit(0)
 	}
 
-	command := arguments[0]
+	command := args[0]
 
 	if _, ok := commands[command]; !ok {
 		fmt.Printf("Error: command \"%s\" cannot be found in \"run.yaml\".\n", command)
