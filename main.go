@@ -76,6 +76,8 @@ func main() {
 			os.Exit(1)
 		}
 	}
+
+	fmt.Println()
 }
 
 func getAvailableCommands() (map[string]string, error) {
@@ -116,6 +118,8 @@ func printAvailableCommands() error {
 }
 
 func executeCommand(command string) error {
+	fmt.Printf("\n\033[2m%s\033[0m\n", command)
+
 	cmd := exec.Command("/bin/sh", "-c", command)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
