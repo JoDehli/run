@@ -42,7 +42,7 @@ func main() {
 	// Check available commands if --list flag was provided
 	if *list {
 		if err := printAvailableCommands(); err != nil {
-			fmt.Println(err)
+			printError(err.Error())
 			os.Exit(1)
 		}
 		os.Exit(0)
@@ -54,7 +54,7 @@ func main() {
 	// Print available commands if no arguments were provided
 	if len(commands) == 0 {
 		if err := printAvailableCommands(); err != nil {
-			fmt.Println(err)
+			printError(err.Error())
 			os.Exit(1)
 		}
 		os.Exit(0)
@@ -63,14 +63,14 @@ func main() {
 	// Get available commands found in run.yaml
 	availableCommands, err := getAvailableCommands()
 	if err != nil {
-		fmt.Println(err)
+		printError(err.Error())
 		os.Exit(1)
 	}
 
 	// Ensure all provided commands exist before trying to execute
 	for _, c := range commands {
 		if _, ok := availableCommands[c]; !ok {
-			fmt.Printf("command \"%s\" could not be found\n", c)
+			printError(fmt.Sprintf("command \"%s\" could not be found", c))
 			os.Exit(1)
 		}
 	}
@@ -78,7 +78,7 @@ func main() {
 	// Execute each provided command
 	for _, c := range commands {
 		if err := executeCommand(availableCommands[c]); err != nil {
-			fmt.Println(err)
+			printError(err.Error())
 			os.Exit(1)
 		}
 	}
@@ -149,4 +149,9 @@ func executeCommand(command string) error {
 
 	// No error
 	return nil
+}
+
+// Prints formatted error message ("• Error: {message}")
+func printError(msg string) {
+	fmt.Printf("\n\033[1;31m•\033[0m Error: %s\n\n", msg)
 }
