@@ -15,6 +15,7 @@ import (
 var currentVersion = "DEV"
 
 func main() {
+
 	// Command line flags
 	version := flag.BoolP("version", "v", false, "Display the current version of run")
 	list := flag.BoolP("list", "l", false, "List all the available commands found in \"run.yaml\"")
@@ -56,27 +57,9 @@ func main() {
 		commands = []string{"default"}
 	}
 
-	// Get available commands found in run.yaml
-	availableCommands, err := getAvailableCommands()
-	if err != nil {
+	// Execute commands
+	if err := executeCommands(commands); err != nil {
 		printError(err.Error())
-		os.Exit(1)
-	}
-
-	// Ensure all provided commands exist before trying to execute
-	for _, c := range commands {
-		if _, ok := availableCommands[c]; !ok {
-			printError(fmt.Sprintf("command \"%s\" could not be found", c))
-			os.Exit(1)
-		}
-	}
-
-	// Execute each provided command
-	for _, c := range commands {
-		if err := executeCommand(availableCommands[c]); err != nil {
-			printError(err.Error())
-			os.Exit(1)
-		}
 	}
 
 	fmt.Println()
@@ -84,6 +67,7 @@ func main() {
 
 // Returns a parsed map of the commands found in run.yaml
 func getAvailableCommands() (map[string]string, error) {
+
 	// Check if run.yaml exists
 	file := "run.yaml"
 	if _, err := os.Stat(file); os.IsNotExist(err) {
@@ -112,6 +96,7 @@ func getAvailableCommands() (map[string]string, error) {
 
 // Prints a list of available commands
 func printAvailableCommands() error {
+
 	// Get available commands found in run.yaml
 	availableCommands, err := getAvailableCommands()
 	if err != nil {
@@ -125,25 +110,44 @@ func printAvailableCommands() error {
 	}
 	fmt.Println()
 
-	// No error
+	// No errors
 	return nil
 }
 
-// Executes provided command
-func executeCommand(command string) error {
-	// Print shell command being executed
-	fmt.Printf("\n\033[2m%s\033[0m\n", command)
+// Executes each provided command
+func executeCommands(commands []string) error {
 
-	// Execute command
-	cmd := exec.Command("/bin/sh", "-c", command)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	if err := cmd.Run(); err != nil {
-		fmt.Println()
-		return errors.New("failed to execute command")
+	// Get available commands found in run.yaml
+	availableCommands, err := getAvailableCommands()
+	if err != nil {
+		printError(err.Error())
+		os.Exit(1)
 	}
 
-	// No error
+	// Ensure all provided commands exist before trying to execute
+	for _, c := range commands {
+		if _, ok := availableCommands[c]; !ok {
+			printError(fmt.Sprintf("command \"%s\" could not be found", c))
+			os.Exit(1)
+		}
+	}
+
+	// Execute each provided command
+	for _, c := range commands {
+		// Print shell command being executed
+		fmt.Printf("\n\033[2m%s\033[0m\n", availableCommands[c])
+
+		// Execute command
+		cmd := exec.Command("/bin/sh", "-c", availableCommands[c])
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+		if err := cmd.Run(); err != nil {
+			fmt.Println()
+			return fmt.Errorf("failed to execute command \"%s\"", c)
+		}
+	}
+
+	// No errors
 	return nil
 }
 
