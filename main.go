@@ -17,16 +17,18 @@ var currentVersion = "DEV"
 func main() {
 
 	// Command line flags
-	version := flag.BoolP("version", "v", false, "Display the current version of run")
-	list := flag.BoolP("list", "l", false, "List all the available commands found in \"run.yaml\"")
+	list := flag.BoolP("list", "l", false, "Print all the available commands found in \"run.yaml\"")
+	version := flag.BoolP("version", "v", false, "Print the current version of run")
 
 	// Override default usage function
 	flag.Usage = func() {
-		fmt.Println("Usage:")
-		fmt.Println("  run [command]")
+		fmt.Printf("\n%s\n\n", "Usage:")
+		fmt.Println("  run [command] ...")
 
-		fmt.Println("\n" + "Other options:")
-		flag.PrintDefaults()
+		fmt.Printf("\n\n%s\n\n", "Flags:")
+		flag.VisitAll(func(f *flag.Flag) {
+			fmt.Printf("  -%s, --%s\t\t%s\n\n", f.Shorthand, f.Name, f.Usage)
+		})
 
 		os.Exit(0)
 	}
@@ -40,7 +42,7 @@ func main() {
 		os.Exit(0)
 	}
 
-	// Check available commands if --list flag was provided
+	// Print available commands if --list flag was provided
 	if *list {
 		if err := printAvailableCommands(); err != nil {
 			printError(err.Error())
@@ -134,6 +136,7 @@ func executeCommands(commands []string) error {
 
 	// Execute each provided command
 	for _, c := range commands {
+
 		// Print shell command being executed
 		fmt.Printf("\n\033[2m%s\033[0m\n", availableCommands[c])
 
