@@ -51,13 +51,9 @@ func main() {
 	// Parse commands (non-flag arguments)
 	commands := flag.Args()
 
-	// Print available commands if no arguments were provided
+	// If no commands were provided, set default command
 	if len(commands) == 0 {
-		if err := printAvailableCommands(); err != nil {
-			printError(err.Error())
-			os.Exit(1)
-		}
-		os.Exit(0)
+		commands = []string{"default"}
 	}
 
 	// Get available commands found in run.yaml
