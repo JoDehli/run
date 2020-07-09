@@ -45,6 +45,7 @@ func main() {
 			fmt.Println(err)
 			os.Exit(1)
 		}
+		os.Exit(0)
 	}
 
 	// Parse commands (non-flag arguments)
@@ -56,6 +57,7 @@ func main() {
 			fmt.Println(err)
 			os.Exit(1)
 		}
+		os.Exit(0)
 	}
 
 	// Get available commands found in run.yaml
