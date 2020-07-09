@@ -1,24 +1,36 @@
 # `run`
-A simple tool to save and run frequently used commands
+Save and run frequently used shell commands
 
 ## Usage
-Save your project's commands in `run.yaml`:
+Save your project's commands in `run.yaml`
 ```yaml
-build: go build -o ./bin/run
+test: go test .
+build: go build -ldflags "-s -w" -o bin/example
+package: tar -czf dist/example.tar.gz bin LICENSE
 ```
 
-Then execute a saved command with `run [command]`:
-```shell script
+Then execute a saved command with `run [command]`
+```
 $ run build
 ```
 
-## Installation
-As of right now, `run` is only officially available for macOS via [`homebrew`](https://brew.sh/). To install:
-```shell script
-$ brew install lukecjohnson/packages/run
-``` 
-For other platforms, `run` can be built and installed from the source.
+Multiple commands can be chained together with `run [command] ...`
+```
+$ run test build package
+```
 
-## Feedback
-`run` is currently in early development and any feedback would be greatly appreciated. If you come across a bug or have 
-an idea for a feature, please feel free to [open an issue](https://github.com/lukecjohnson/run/issues/new).
+A `default` command can be specified in `run.yaml` that will be executed with the base `run` command
+```yaml
+default: run test build package
+```
+```
+$ run
+```
+
+## Installation
+Currently, `run` is only officially distributed for macOS via [Homebrew](https://brew.sh/). To install:
+```
+$ brew install lukecjohnson/packages/run
+```
+
+For other platforms, prebuilt binaries can be downloaded directly from the [releases page](https://github.com/lukecjohnson/run/releases).
