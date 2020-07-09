@@ -45,19 +45,36 @@ func main() {
 		}
 	}
 
-	// Parse non-flag arguments (commands)
-	args := flag.Args()
+	// Parse commands (non-flag arguments)
+	commands := flag.Args()
 
-	if len(args) == 0 {
+	if len(commands) == 0 {
 		if err := printAvailableCommands(); err != nil {
 			fmt.Println(err)
 			os.Exit(1)
 		}
 	}
 
-	if err := executeCommands(args); err != nil {
+	availableCommands, err := getAvailableCommands()
+	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
+	}
+
+	// Ensure all provided commands exist before trying to execute
+	for _, c := range commands {
+		if _, ok := availableCommands[c]; !ok {
+			fmt.Printf("command \"%s\" could not be found\n", c)
+			os.Exit(1)
+		}
+	}
+
+	// Execute each provided command
+	for _, c := range commands {
+		if err := executeCommand(availableCommands[c]); err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
 	}
 }
 
@@ -98,26 +115,8 @@ func printAvailableCommands() error {
 	return nil
 }
 
-func executeCommands(commands []string) error {
-	availableCommands, err := getAvailableCommands()
-	if err != nil {
-		return err
-	}
-
-	commandString := ""
-
-	for i, c := range commands {
-		if _, ok := availableCommands[c]; !ok {
-			return fmt.Errorf("command \"%s\" could not be found", c)
-		}
-
-		commandString += availableCommands[c]
-		if i+1 < len(commands) {
-			commandString += " && "
-		}
-	}
-
-	cmd := exec.Command("/bin/sh", "-c", commandString)
+func executeCommand(command string) error {
+	cmd := exec.Command("/bin/sh", "-c", command)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
