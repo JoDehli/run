@@ -141,7 +141,7 @@ func executeCommands(commands []string) error {
 		fmt.Printf("\n\033[2m%s\033[0m\n", availableCommands[c])
 
 		// Execute command
-		cmd := exec.Command("/bin/sh", "-c", availableCommands[c])
+		cmd := exec.Command("sh", "-c", availableCommands[c])
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 		if err := cmd.Run(); err != nil {
